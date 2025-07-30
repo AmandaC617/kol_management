@@ -19,6 +19,11 @@ import { isDemoMode } from "./demo-data";
 import { DemoService } from "./demo-service";
 
 export class FirebaseService {
+  // Check if Firebase is available
+  static isAvailable(): boolean {
+    return !isDemoMode() && !!db && !!auth;
+  }
+
   // Project operations
   static getProjectsRef(userId: string) {
     if (!db) {
@@ -68,23 +73,37 @@ export class FirebaseService {
   }
 
   static async createInfluencer(
-    userId: string,
     projectId: string,
-    influencerData: Omit<Influencer, 'id' | 'createdAt' | 'latestScore'>
-  ): Promise<void> {
-    if (isDemoMode()) {
+    influencerData: Omit<Influencer, 'id' | 'createdAt' | 'latestScore'>,
+    userId?: string
+  ): Promise<Influencer> {
+    if (isDemoMode() || !FirebaseService.isAvailable()) {
       return DemoService.createInfluencer(projectId, influencerData);
+    }
+
+    if (!userId) {
+      throw new Error("User ID is required for Firebase operations");
     }
 
     // 計算基於 AI 分析的真實分數
     const realScore = this.calculateInfluencerScore(influencerData.profile);
 
     const influencersRef = this.getInfluencersRef(userId, projectId);
-    await addDoc(influencersRef, {
+    const docRef = await addDoc(influencersRef, {
       ...influencerData,
       createdAt: serverTimestamp(),
       latestScore: realScore  // 使用計算出的真實分數
     });
+
+    // 返回新創建的網紅數據
+    const newInfluencer: Influencer = {
+      ...influencerData,
+      id: docRef.id,
+      createdAt: new Date(),
+      latestScore: realScore
+    };
+
+    return newInfluencer;
   }
 
   /**

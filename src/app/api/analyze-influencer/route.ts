@@ -509,7 +509,9 @@ export async function POST(request: NextRequest) {
           console.log('🔧 DemoService: 服務器端初始化');
           savedInfluencer = await DemoService.createInfluencer(projectId, influencerToSave);
         } else {
-          savedInfluencer = await FirebaseService.createInfluencer(projectId, influencerToSave);
+          // TODO: 在非 demo 模式下需要用戶 ID，目前暫時回退到 demo 模式
+          console.warn('⚠️ Firebase 模式需要用戶 ID，回退到 demo 模式');
+          savedInfluencer = await DemoService.createInfluencer(projectId, influencerToSave);
         }
 
         console.log('[INFO] 創建網紅成功', {

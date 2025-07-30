@@ -151,7 +151,7 @@ export class DemoService {
     }
   }
 
-  static async createInfluencer(projectId: string, influencerData: Omit<Influencer, 'id' | 'createdAt' | 'latestScore'>): Promise<void> {
+  static async createInfluencer(projectId: string, influencerData: Omit<Influencer, 'id' | 'createdAt' | 'latestScore'>): Promise<Influencer> {
     try {
       // 確保數據結構已初始化
       this.initialize();
@@ -176,6 +176,8 @@ export class DemoService {
         influencerId: newInfluencer.id,
         influencerName: newInfluencer.profile.name 
       });
+
+      return newInfluencer;
     } catch (error) {
       ErrorService.handleError(error as Error, ErrorCode.DATA_INVALID, { 
         operation: 'createInfluencer', 

@@ -332,7 +332,7 @@ export class InfluencerDatabaseService {
     if (process.env.NODE_ENV === 'development' && !process.env.FIREBASE_PROJECT_ID) {
       await DemoService.createInfluencer(projectId, influencer);
     } else {
-      await FirebaseService.createInfluencer(userId, projectId, influencer);
+      await FirebaseService.createInfluencer(projectId, influencer, userId);
     }
   }
 
