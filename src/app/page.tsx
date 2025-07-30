@@ -116,45 +116,29 @@ export default function Home() {
 
   const { user, signInWithGoogle, signOutUser, signInAsDemo } = useAuth();
 
-  // 調試：檢查 AuthContext 狀態
-  console.log("🔍 AuthContext 狀態:", {
-    hasUser: !!user,
-    userId: user?.uid,
-    hasSignInWithGoogle: typeof signInWithGoogle === 'function',
-    hasSignInAsDemo: typeof signInAsDemo === 'function',
-    hasSignOutUser: typeof signOutUser === 'function'
-  });
+
 
   // Login and demo functions
   const handleDemoMode = () => {
-    console.log("🎭 體驗模式按鈕被點擊");
     try {
       signInAsDemo();
       setDemoMode(true);
-      console.log("✅ 體驗模式登入成功");
     } catch (error) {
-      console.error("❌ 體驗模式登入失敗:", error);
-      alert("體驗模式登入失敗: " + (error as Error).message);
+      console.error("體驗模式登入失敗:", error);
+      alert("體驗模式登入失敗，請重新嘗試。");
     }
   };
 
   const handleLogin = async () => {
-    console.log("🔐 Google 登入按鈕被點擊");
-    console.log("📊 當前狀態:", { isLoggingIn, user: user?.uid });
-    
     setIsLoggingIn(true);
     try {
-      console.log("🔄 開始調用 signInWithGoogle...");
       await signInWithGoogle();
-      console.log("✅ Google 登入成功");
       setDemoMode(false);
     } catch (error) {
-      console.error("❌ Google 登入失敗詳細錯誤:", error);
       const errorMessage = (error as Error).message || "登入失敗";
       alert('Google 登入失敗: ' + errorMessage);
     } finally {
       setIsLoggingIn(false);
-      console.log("🏁 登入流程結束");
     }
   };
 
@@ -360,19 +344,7 @@ export default function Home() {
           <p className="text-gray-600">網紅智慧評估平台</p>
         </div>
 
-        {/* 測試按鈕 */}
-        <button
-          onClick={() => {
-            console.log("🧪 測試按鈕被點擊 - JavaScript 正常工作！");
-            alert("測試按鈕工作正常！");
-          }}
-          className="w-full mb-4 bg-yellow-500 text-white py-2 rounded-lg font-medium hover:bg-yellow-600 transition-colors"
-        >
-          🧪 測試按鈕（點擊檢查）
-        </button>
 
-        {/* Firebase 連接測試 */}
-        <FirebaseConnectionTest />
 
         {/* 登入選項按鈕 */}
         {loginMode === 'buttons' && (
@@ -391,7 +363,7 @@ export default function Home() {
 
             <button
               onClick={() => {
-                console.log("📧 電子郵件登入按鈕被點擊");
+                // 電子郵件登入
                 setLoginMode('password');
               }}
               className="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition-colors"
@@ -423,11 +395,11 @@ export default function Home() {
 
         {/* 提示文字 */}
         {loginMode === 'buttons' && (
-          <div className="mt-6 text-center text-sm text-gray-500">
-            <p>✨ 體驗模式包含完整功能演示</p>
-            <p>🔐 登入後可保存真實數據</p>
-            <p>📧 新用戶請選擇電子郵件註冊</p>
-          </div>
+                  <div className="mt-6 text-center text-sm text-gray-500">
+          <p>🔐 使用 Google 帳號登入可保存數據</p>
+          <p>📧 或建立新帳號開始使用</p>
+          <p>✨ 體驗模式可立即試用所有功能</p>
+        </div>
         )}
       </div>
     </div>

@@ -24,9 +24,7 @@ export const Dashboard = () => {
 
   // 自動選擇預設專案
   useEffect(() => {
-    console.log('🔍 Dashboard: 用戶狀態變化', { 
-      user: user ? { uid: user.uid, name: user.displayName } : null 
-    });
+    // 載入使用者資料
     
     if (user) {
       const loadDefaultProject = async () => {
@@ -45,7 +43,7 @@ export const Dashboard = () => {
             permissions: { 'demo-user': 'owner' },
             isPublic: false
           };
-          console.log('🔍 Dashboard: 設置預設專案', defaultProject);
+          // 設置預設專案
           setSelectedProject(defaultProject);
         } catch (error) {
           console.error('Failed to load default project:', error);

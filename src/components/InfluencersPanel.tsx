@@ -60,11 +60,7 @@ export const InfluencersPanel = ({
     let unsubscribe: Unsubscribe;
 
     const loadInfluencers = async () => {
-      console.log(`🔍 InfluencersPanel: 開始載入網紅資料`, {
-        userId: user.uid,
-        projectId: selectedProject.id,
-        projectName: selectedProject.name
-      });
+      // 載入網紅資料
 
       unsubscribe = FirebaseService.subscribeToInfluencers(
         user.uid,

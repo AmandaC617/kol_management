@@ -107,11 +107,7 @@ export const BatchUploadModal = ({
         if (row.notes) profile.bio = row.notes;
 
         // Save to database
-        console.log(`🔍 批次上傳: 保存網紅資料`, {
-          name: profile.name,
-          platform: profile.platform,
-          url: row.url
-        });
+        // 保存網紅資料到資料庫
         
         await FirebaseService.createInfluencer(user.uid, projectId, {
           url: row.url,
@@ -122,10 +118,7 @@ export const BatchUploadModal = ({
           notes: row.notes || ""
         });
         
-        console.log(`✅ 批次上傳: 網紅資料保存成功`, {
-          name: profile.name,
-          platform: profile.platform
-        });
+        // 資料保存成功
 
         result.success++;
       } catch (error) {

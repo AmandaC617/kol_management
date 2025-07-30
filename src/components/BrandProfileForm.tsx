@@ -67,7 +67,7 @@ export const BrandProfileForm: React.FC<BrandProfileFormProps> = ({
 
   const handleSave = () => {
     if (!profile.name || !profile.industry) {
-      alert('請填寫品牌名稱和產業類別');
+      alert('❌ 請填寫品牌名稱和產業類別後再儲存');
       return;
     }
 

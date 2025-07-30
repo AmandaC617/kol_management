@@ -78,7 +78,7 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
 
   const handleSave = () => {
     if (!formData.name || !formData.description) {
-      alert('請填寫專案名稱和描述');
+      alert('❌ 請填寫專案名稱和描述後再儲存');
       return;
     }
 

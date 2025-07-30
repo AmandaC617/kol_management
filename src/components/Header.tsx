@@ -115,7 +115,8 @@ export const Header = () => {
           )}
           {isDemoMode() && (
             <Badge variant="secondary" className="text-xs">
-              體驗模式
+              <div className="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+              體驗模式 (數據自動保存)
             </Badge>
           )}
         </div>

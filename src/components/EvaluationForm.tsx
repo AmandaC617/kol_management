@@ -76,12 +76,12 @@ export const EvaluationForm = ({ project, influencer, onEvaluationSubmitted }: E
       });
       setNotes("");
 
-      alert(`評估已提交！最終分數: ${totalScore.toFixed(2)}`);
+      alert(`✅ 評估已成功保存！\n最終分數: ${totalScore.toFixed(2)} 分\n數據已自動儲存到系統中`);
       onEvaluationSubmitted();
 
     } catch (error) {
       console.error("Failed to submit evaluation:", error);
-      alert("提交評估失敗，請稍後再試。");
+      alert("❌ 評估保存失敗，請檢查網路連線後重試。");
     } finally {
       setLoading(false);
     }
@@ -139,7 +139,7 @@ export const EvaluationForm = ({ project, influencer, onEvaluationSubmitted }: E
             disabled={loading}
             className="w-full bg-indigo-600 hover:bg-indigo-700"
           >
-            {loading ? "提交中..." : "提交評估"}
+            {loading ? "💾 保存中..." : "💾 儲存評估"}
           </Button>
         </div>
       </form>
