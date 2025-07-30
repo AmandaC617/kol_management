@@ -8,6 +8,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { TeamManagement } from "@/components/TeamManagement";
 import { LoginModal } from "@/components/LoginModal";
 import { ApiStatusIndicator } from "@/components/ApiStatusIndicator";
+import { Avatar } from "@/components/ui/avatar";
 import { isFirebaseAvailable } from "@/lib/firebase";
 import { isDemoMode } from "@/lib/demo-data";
 import { Users, LogIn, LogOut, Settings } from "lucide-react";
@@ -49,13 +50,12 @@ export const Header = () => {
       <div className="flex items-center space-x-3">
         {/* User Info */}
         <div className="flex items-center space-x-2">
-          {user.photoURL && (
-            <img
-              src={user.photoURL}
-              alt={user.displayName || "User"}
-              className="w-6 h-6 rounded-full"
-            />
-          )}
+          <Avatar
+            src={user.photoURL}
+            name={user.displayName || user.name || user.email || '用戶'}
+            alt={user.displayName || "User"}
+            size="sm"
+          />
           <span className="text-sm text-gray-700">
             {user.displayName || user.name || user.email || '用戶'}
           </span>

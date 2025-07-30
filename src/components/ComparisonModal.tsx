@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Avatar } from "@/components/ui/avatar";
 import { ExportButton } from "@/components/ExportButton";
 import { FirebaseService } from "@/lib/firebase-service";
 import { useAuth } from "@/contexts/AuthContext";
@@ -349,10 +350,12 @@ const ComparisonModal = ({ isOpen, onClose, influencers, projectId }: Comparison
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {comparisonData.map((data, index) => (
                     <div key={data.influencer.id} className="text-center p-4 bg-gray-50 rounded-lg">
-                      <img
+                      <Avatar
                         src={getInfluencerProperty(data.influencer, 'avatar')}
+                        name={getInfluencerProperty(data.influencer, 'name')}
                         alt={getInfluencerProperty(data.influencer, 'name')}
-                        className="w-12 h-12 rounded-full mx-auto mb-2 object-cover"
+                        size="md"
+                        className="mx-auto mb-2"
                       />
                       <h3 className="font-semibold text-sm mb-1">
                         {getInfluencerProperty(data.influencer, 'name')}
@@ -398,10 +401,12 @@ const ComparisonModal = ({ isOpen, onClose, influencers, projectId }: Comparison
                         {comparisonData.map(data => (
                           <th key={data.influencer.id} className="text-center p-3 font-semibold">
                             <div className="flex flex-col items-center">
-                              <img
+                              <Avatar
                                 src={getInfluencerProperty(data.influencer, 'avatar')}
+                                name={getInfluencerProperty(data.influencer, 'name')}
                                 alt={getInfluencerProperty(data.influencer, 'name')}
-                                className="w-6 h-6 rounded-full mb-1 object-cover"
+                                size="sm"
+                                className="mb-1"
                               />
                               <span className="text-xs">
                                 {getInfluencerProperty(data.influencer, 'name')}

@@ -399,10 +399,11 @@ export const InfluencerDatabasePanel: React.FC<InfluencerDatabasePanelProps> = (
                         onCheckedChange={() => handleInfluencerToggle(influencer.id)}
                         onClick={(e) => e.stopPropagation()}
                       />
-                      <img
-                        src={influencer.profile?.avatar || 'https://placehold.co/40x40'}
+                      <Avatar
+                        src={influencer.profile?.avatar}
+                        name={influencer.profile?.name || influencer.id.toString()}
                         alt={influencer.profile?.name || '未知'}
-                        className="w-10 h-10 rounded-full object-cover"
+                        size="md"
                       />
                       <div>
                         <p className="font-medium text-gray-900">

@@ -6,6 +6,7 @@ import { EnhancedAnalysisPanel } from "./EnhancedAnalysisPanel";
 import { ExportButton } from "./ExportButton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Avatar } from "@/components/ui/avatar";
 import { Project, Influencer, Evaluation, EnhancedInfluencerProfile } from "@/types";
 import { FirebaseService } from "@/lib/firebase-service";
 import { GeminiService } from "@/lib/gemini-service";
@@ -84,17 +85,13 @@ export const InfluencerDetails = ({
         <div className="flex flex-col lg:flex-row lg:items-start gap-4">
           {/* 頭像和基本資訊 */}
           <div className="flex items-start gap-4">
-            <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-              {profile?.avatar ? (
-                <img 
-                  src={profile.avatar} 
-                  alt={profile.name} 
-                  className="w-full h-full rounded-2xl object-cover"
-                />
-              ) : (
-                <User className="w-8 h-8 lg:w-10 lg:h-10 text-white" />
-              )}
-            </div>
+            <Avatar
+              src={profile?.avatar}
+              name={profile?.name || influencer.id.toString()}
+              alt={profile?.name || '未知網紅'}
+              size="xl"
+              className="shadow-lg"
+            />
             
             <div className="flex-1 min-w-0">
               <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-4 mb-3">

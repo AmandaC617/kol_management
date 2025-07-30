@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
+import { Avatar } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 import { useAuth } from "@/contexts/AuthContext";
@@ -565,10 +566,11 @@ export const InfluencersPanel = ({
                       onClick={e => e.stopPropagation()}
                     />
                   )}
-                  <img
-                    src={influencer.profile?.avatar || 'https://placehold.co/40x40/E2E8F0/A0AEC0?text=?'}
+                  <Avatar
+                    src={influencer.profile?.avatar}
+                    name={influencer.profile?.name || influencer.id.toString()}
                     alt={influencer.profile?.name || '未知'}
-                    className="w-10 h-10 rounded-full object-cover"
+                    size="md"
                   />
                   <div className="flex-grow min-w-0">
                     <p className="font-semibold text-gray-800 truncate">

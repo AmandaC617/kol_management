@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Avatar } from "@/components/ui/avatar";
 import { GitCompare, Filter, Search, Edit, Save, X, Plus, Users } from "lucide-react";
 
 interface InfluencersPageProps {
@@ -223,10 +224,11 @@ const InfluencersPage: React.FC<InfluencersPageProps> = ({
                       onClick={(e) => e.stopPropagation()}
                     />
                   )}
-                  <img
+                  <Avatar
                     src={influencer.avatar}
+                    name={influencer.name}
                     alt={influencer.name}
-                    className="w-16 h-16 rounded-full object-cover"
+                    size="lg"
                   />
                   <div className="flex space-x-1">
                     <Button
