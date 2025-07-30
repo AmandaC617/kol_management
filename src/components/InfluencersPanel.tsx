@@ -15,6 +15,8 @@ import { BatchUploadModal } from "@/components/BatchUploadModal";
 import { ComparisonButton } from "@/components/ComparisonButton";
 import ProjectComparisonModal from "@/components/ProjectComparisonModal";
 import DatabaseComparisonModal from "@/components/DatabaseComparisonModal";
+import ContinuousAddInfluencerModal from "@/components/ContinuousAddInfluencerModal";
+import ComparisonDimensionsGuide from "@/components/ComparisonDimensionsGuide";
 import { FilterPanel } from "@/components/FilterPanel";
 import { Project, Influencer, InfluencerFilters, getEntityId } from "@/types";
 import { Unsubscribe } from "firebase/firestore";
@@ -45,6 +47,8 @@ export const InfluencersPanel = ({
   const [showFilters, setShowFilters] = useState(false);
   const [isProjectComparisonOpen, setIsProjectComparisonOpen] = useState(false);
   const [isDatabaseComparisonOpen, setIsDatabaseComparisonOpen] = useState(false);
+  const [isContinuousAddOpen, setIsContinuousAddOpen] = useState(false);
+  const [isDimensionsGuideOpen, setIsDimensionsGuideOpen] = useState(false);
 
   // Filter state
   const [filters, setFilters] = useState<InfluencerFilters>({
@@ -680,6 +684,16 @@ export const InfluencersPanel = ({
               資料庫比較
             </Button>
             
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsDimensionsGuideOpen(true)}
+              className="flex items-center gap-2 text-gray-600"
+            >
+              <GitCompare className="w-4 h-4" />
+              比對說明
+            </Button>
+            
             <ComparisonButton
               influencers={allInfluencers}
               selectedInfluencers={selectedForComparison}
@@ -701,6 +715,19 @@ export const InfluencersPanel = ({
         <DatabaseComparisonModal
           isOpen={isDatabaseComparisonOpen}
           onClose={() => setIsDatabaseComparisonOpen(false)}
+        />
+
+        {/* Continuous Add Influencer Modal */}
+        <ContinuousAddInfluencerModal
+          isOpen={isContinuousAddOpen}
+          onClose={() => setIsContinuousAddOpen(false)}
+          selectedProject={selectedProject}
+        />
+
+        {/* Comparison Dimensions Guide */}
+        <ComparisonDimensionsGuide
+          isOpen={isDimensionsGuideOpen}
+          onClose={() => setIsDimensionsGuideOpen(false)}
         />
       </div>
     </div>
