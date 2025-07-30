@@ -297,7 +297,7 @@ async function getGeminiAnalysis(url: string, platformInfo: { platform: string; 
 
   } catch (error) {
     console.error('Gemini 分析錯誤:', error);
-    return {
+  return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown Gemini error',
       source: 'gemini'
@@ -361,7 +361,7 @@ async function analyzeInfluencerData(url: string): Promise<AnalysisResult> {
   // 1. 偵測平台
   const platformInfo = detectPlatform(url);
   if (!platformInfo) {
-    return {
+      return {
       success: false,
       error: '無法識別社交媒體平台',
       source: 'demo'
@@ -469,7 +469,7 @@ export async function POST(request: NextRequest) {
 
       try {
         // 分析網紅數據
-        const analysisResult = await analyzeInfluencerData(url);
+    const analysisResult = await analyzeInfluencerData(url);
 
         if (!analysisResult.success || !analysisResult.data) {
           console.error(`❌ 分析失敗 [${i + 1}/${urls.length}]:`, analysisResult.error);

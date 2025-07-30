@@ -120,7 +120,7 @@ class EnhancedAnalyticsService {
       }
 
       const data = await response.json();
-
+      
       if (!data.items || data.items.length === 0) {
         console.error('No channel data found');
         return null;
@@ -153,8 +153,8 @@ class EnhancedAnalyticsService {
   async getGoogleSearchData(query: string): Promise<GoogleSearchResult[]> {
     if (!GOOGLE_CLOUD_API_KEY || !GOOGLE_SEARCH_ENGINE_ID) {
       console.warn('Google Search API not configured');
-      return [];
-    }
+        return [];
+      }
 
     try {
       const searchUrl = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_CLOUD_API_KEY}&cx=${GOOGLE_SEARCH_ENGINE_ID}&q=${encodeURIComponent(query)}&num=5`;

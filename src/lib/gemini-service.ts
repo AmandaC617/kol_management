@@ -1,6 +1,6 @@
 import { InfluencerProfile, EnhancedInfluencerProfile, EnhancedPostData } from "@/types";
 import { GoogleSearchService } from "./google-search-service";
-import { EnhancedAnalyticsService } from "./enhanced-analytics-service";
+import EnhancedAnalyticsService from "./enhanced-analytics-service";
 
 export class GeminiService {
   private static readonly API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY || "";
@@ -150,11 +150,11 @@ export class GeminiService {
             // 驗證粉絲數量合理性
             const platform = profileData.platform || 'Instagram';
             const validRanges = {
-              'Instagram': { min: 100, max: 50000000 },
-              'YouTube': { min: 10, max: 100000000 },
-              'TikTok': { min: 100, max: 200000000 },
-              'Facebook': { min: 50, max: 10000000 },
-              'Twitter': { min: 10, max: 50000000 }
+              'Instagram': { min: 100, max: 600000000 },    // Instagram: 最高約6億 (Cristiano Ronaldo)
+              'YouTube': { min: 10, max: 500000000 },       // YouTube: 最高約5億 (MrBeast等)
+              'TikTok': { min: 100, max: 200000000 },       // TikTok: 最高約2億
+              'Facebook': { min: 50, max: 200000000 },      // Facebook: 最高約2億
+              'Twitter': { min: 10, max: 150000000 }        // Twitter/X: 最高約1.5億
             };
 
             const range = validRanges[platform as keyof typeof validRanges] || validRanges['Instagram'];
