@@ -21,7 +21,9 @@ import { DemoService } from "./demo-service";
 export class FirebaseService {
   // Check if Firebase is available
   static isAvailable(): boolean {
-    return !isDemoMode() && !!db && !!auth;
+    return !isDemoMode() && !!db && !!auth && 
+           process.env.NEXT_PUBLIC_FIREBASE_API_KEY && 
+           process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
   }
 
   // Project operations

@@ -319,20 +319,40 @@ export class InfluencerDatabaseService {
   }
 
   private static async addToGlobalDatabase(userId: string, influencer: Influencer): Promise<void> {
-    if (process.env.NODE_ENV === 'development' && !process.env.FIREBASE_PROJECT_ID) {
-      // Demo模式: 添加到預設專案
-      await DemoService.createInfluencer('demo-project-1', influencer);
-    } else {
-      // Placeholder: Firebase全域網紅功能待實現
-      console.warn('Firebase全域網紅功能待實現');
+    try {
+      if (isDemoMode() || !FirebaseService.isAvailable()) {
+        // Demo模式: 添加到預設專案
+        await DemoService.createInfluencer('demo-project-1', influencer);
+      } else {
+        // Firebase模式：添加到全域資料庫  
+        if (!db) throw new Error('Firebase not initialized');
+        
+        const globalRef = collection(db, `artifacts/${APP_ID}/global-influencers`);
+        await addDoc(globalRef, {
+          ...influencer,
+          addedBy: userId,
+          addedAt: serverTimestamp(),
+          lastUpdated: serverTimestamp()
+        });
+        
+        console.log('網紅已添加到全域資料庫:', influencer.profile?.name);
+      }
+    } catch (error) {
+      console.error('添加到全域資料庫失敗:', error);
+      throw error;
     }
   }
 
   private static async addToProject(userId: string, projectId: string, influencer: Influencer): Promise<void> {
-    if (process.env.NODE_ENV === 'development' && !process.env.FIREBASE_PROJECT_ID) {
-      await DemoService.createInfluencer(projectId, influencer);
-    } else {
-      await FirebaseService.createInfluencer(projectId, influencer, userId);
+    try {
+      if (isDemoMode() || !FirebaseService.isAvailable()) {
+        await DemoService.createInfluencer(projectId, influencer);
+      } else {
+        await FirebaseService.createInfluencer(projectId, influencer, userId);
+      }
+    } catch (error) {
+      console.error('添加到專案失敗:', error);
+      throw error;
     }
   }
 

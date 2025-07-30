@@ -13,6 +13,8 @@ import { FirebaseService } from "@/lib/firebase-service";
 import { GeminiService } from "@/lib/gemini-service";
 import { BatchUploadModal } from "@/components/BatchUploadModal";
 import { ComparisonButton } from "@/components/ComparisonButton";
+import ProjectComparisonModal from "@/components/ProjectComparisonModal";
+import DatabaseComparisonModal from "@/components/DatabaseComparisonModal";
 import { FilterPanel } from "@/components/FilterPanel";
 import { Project, Influencer, InfluencerFilters, getEntityId } from "@/types";
 import { Unsubscribe } from "firebase/firestore";
@@ -41,6 +43,8 @@ export const InfluencersPanel = ({
   const [isComparisonMode, setIsComparisonMode] = useState(false);
   const [selectedForComparison, setSelectedForComparison] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
+  const [isProjectComparisonOpen, setIsProjectComparisonOpen] = useState(false);
+  const [isDatabaseComparisonOpen, setIsDatabaseComparisonOpen] = useState(false);
 
   // Filter state
   const [filters, setFilters] = useState<InfluencerFilters>({
@@ -654,11 +658,50 @@ export const InfluencersPanel = ({
 
         {/* Comparison Button */}
         {selectedProject && (
-          <ComparisonButton
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setIsProjectComparisonOpen(true)}
+              disabled={!selectedProject || allInfluencers.length < 2}
+              className="flex items-center gap-2"
+            >
+              <GitCompare className="w-4 h-4" />
+              專案內比較
+            </Button>
+            
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setIsDatabaseComparisonOpen(true)}
+              className="flex items-center gap-2"
+            >
+              <Target className="w-4 h-4" />
+              資料庫比較
+            </Button>
+            
+            <ComparisonButton
+              influencers={allInfluencers}
+              selectedInfluencers={selectedForComparison}
+            />
+          </div>
+        )}
+        {/* Project Comparison Modal */}
+        {selectedProject && (
+          <ProjectComparisonModal
+            isOpen={isProjectComparisonOpen}
+            onClose={() => setIsProjectComparisonOpen(false)}
             influencers={allInfluencers}
-            selectedInfluencers={selectedForComparison}
+            projectId={selectedProject.id}
+            project={selectedProject}
           />
         )}
+
+        {/* Database Comparison Modal */}
+        <DatabaseComparisonModal
+          isOpen={isDatabaseComparisonOpen}
+          onClose={() => setIsDatabaseComparisonOpen(false)}
+        />
       </div>
     </div>
   );
