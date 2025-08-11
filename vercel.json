@@ -20,6 +20,8 @@
     "NEXT_PUBLIC_GOOGLE_CLIENT_ID": "@google_client_id",
     "NEXT_PUBLIC_SOCIAL_BLADE_CLIENT_ID": "@social_blade_client_id",
     "NEXT_PUBLIC_SOCIAL_BLADE_TOKEN": "@social_blade_token",
+    "NEXT_PUBLIC_ZYTE_API_KEY": "@zyte_api_key",
+    "NEXT_PUBLIC_ENABLE_ZYTE": "true",
     "NEXT_PUBLIC_DEMO_MODE": "false",
     "NEXT_PUBLIC_ALLOW_DEMO_MODE": "true"
   },

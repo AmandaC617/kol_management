@@ -14,6 +14,7 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { isFirebaseAvailable, getFirebaseStatus } from "@/lib/firebase";
 import { isDemoMode } from "@/lib/demo-data";
+import { checkZyteConfig } from "@/lib/zyte-service";
 import {
   CheckCircle,
   XCircle,
@@ -73,6 +74,13 @@ export const ApiStatusIndicator = () => {
         required: false,
         description: "內容情感分析",
         setupUrl: "https://console.cloud.google.com/apis/library/language.googleapis.com"
+      },
+      {
+        name: "Zyte 爬蟲",
+        configured: checkZyteConfig().configured,
+        required: false,
+        description: "網頁數據抓取和社交媒體分析",
+        setupUrl: "https://app.scrapingbee.com/"
       }
     ];
   };
